@@ -2,10 +2,11 @@
 import { Component, inject, OnInit, ChangeDetectorRef } from '@angular/core';
 import { Monitoria } from '../../services/monitoria.service';
 import { VagaMonitoria } from '../../models/vaga-monitoria';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-monitorias',
-  imports: [],
+  imports: [RouterLink],
   templateUrl: './monitorias.component.html',
   styleUrl: './monitorias.component.css'
 })
