@@ -110,12 +110,27 @@ export class FormularioMonitoria implements OnInit {
 
         this.cdr.markForCheck();
       },
+
+
       error: (erro) => {
         console.error('Erro ao salvar:', erro);
-        this.mensagem = 'Não foi possível salvar a monitoria.';
+
+        if (erro.status === 0) {
+          this.mensagem = 'Servidor indisponível / Verifique a conexão';
+        } else if (erro.status === 404) {
+          this.mensagem = 'Monitoria não encontrada';
+        } else if (erro.status === 400) {
+          this.mensagem = typeof erro.error === 'string'
+            ? erro.error
+            : 'Dados inválidos / Verifique o formulário';
+        } else {
+          this.mensagem = 'Não foi possível salvar a monitoria';
+        }
+
         this.salvando = false;
         this.cdr.markForCheck();
       }
+
       
     });
     

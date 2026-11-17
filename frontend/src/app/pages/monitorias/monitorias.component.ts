@@ -51,11 +51,23 @@ export class Monitorias implements OnInit {
         this.mensagemAcao = 'Inscrição realizada com sucesso!';
         this.carregarMonitorias();
       },
-      error: (erro) => {
-        console.error('Erro ao inscrever:', erro);
+
+
+    error: (erro) => {
+      console.error('Erro ao inscrever:', erro);
+
+      if (erro.status === 400 && typeof erro.error === 'string') {
+        this.mensagemAcao = erro.error;
+      } else if (erro.status === 0) {
+        this.mensagemAcao = 'Não foi possível conectar ao servidor.';
+      } else {
         this.mensagemAcao = 'Não foi possível realizar a inscrição.';
-        this.cdr.markForCheck();
       }
+
+      this.cdr.markForCheck();
+    }
+
+
     });
   }
 
